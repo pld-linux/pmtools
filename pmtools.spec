@@ -32,7 +32,7 @@ i OEM-ów nie ma mo¿liwo¶ci dostarczania w pe³ni funkcjonalnych tabel
 %setup -q
 
 %build
-%{__make} \
+%{__make} -C acpidmp \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} -Wall -W -pedantic"
 
@@ -40,13 +40,12 @@ i OEM-ów nie ma mo¿liwo¶ci dostarczania w pe³ni funkcjonalnych tabel
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_sbindir}
 
-%{__make} install \
-	PREFIX=$RPM_BUILD_ROOT%{_prefix}
+install acpidmp/{acpidmp,acpitbl,acpixtract} $RPM_BUILD_ROOT%{_sbindir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc CHANGELOG README AUTHORS
+%doc README
 %attr(755,root,root) %{_sbindir}/*
