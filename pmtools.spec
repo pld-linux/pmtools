@@ -1,12 +1,12 @@
 Summary:	Retrieve the DSDT from your BIOS
 Summary(pl):	Narzêdzie do odczytu DSDT z BIOS-u
 Name:		pmtools
-Version:	20031210
+Version:	20051111
 Release:	0.1
 License:	GPL
 Group:		Applications/System
 Source0:	http://ftp.kernel.org/pub/linux/kernel/people/lenb/acpi/utils/%{name}-%{version}.tar.bz2
-# Source0-md5:	7d482ab86410f3f8c30a9fba5d660f32
+# Source0-md5:	a1343eb32844ca9aa9fd5c9fdc53b9c4
 URL:		http://acpi.sourceforge.net/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -32,15 +32,15 @@ i OEM-ów nie ma mo¿liwo¶ci dostarczania w pe³ni funkcjonalnych tabel
 %setup -q
 
 %build
-%{__make} -C acpidmp \
+%{__make} -C acpidump \
 	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags} -Wall -W -pedantic"
+	CFLAGS="%{rpmcflags} -Wall -W -pedantic -D_LINUX -DDEFINE_ALTERNATE_TYPES  -I../include"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_sbindir}
 
-install acpidmp/{acpidmp,acpitbl,acpixtract} $RPM_BUILD_ROOT%{_sbindir}
+install acpidump/{acpidump,acpitbl,acpixtract} $RPM_BUILD_ROOT%{_sbindir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
