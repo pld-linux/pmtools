@@ -1,12 +1,12 @@
 Summary:	Retrieve the DSDT from your BIOS
 Summary(pl):	Narzêdzie do odczytu DSDT z BIOS-u
 Name:		pmtools
-Version:	20051111
-Release:	0.1
+Version:	20061026
+Release:	1
 License:	GPL
 Group:		Applications/System
 Source0:	http://ftp.kernel.org/pub/linux/kernel/people/lenb/acpi/utils/%{name}-%{version}.tar.bz2
-# Source0-md5:	a1343eb32844ca9aa9fd5c9fdc53b9c4
+# Source0-md5:	a64834987d23e35c90a80c1ca0c3e2ae
 URL:		http://acpi.sourceforge.net/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -31,21 +31,26 @@ i OEM-ów nie ma mo¿liwo¶ci dostarczania w pe³ni funkcjonalnych tabel
 %prep
 %setup -q
 
+mv -f madt/README README.madt
+
 %build
 %{__make} -C acpidump \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} -Wall -W -pedantic -D_LINUX -DDEFINE_ALTERNATE_TYPES  -I../include"
+
+%{__cc} %{rpmldflags} %{rpmcflags} -o madt/madt madt/madt.c
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_sbindir}
 
 install acpidump/{acpidump,acpitbl,acpixtract} $RPM_BUILD_ROOT%{_sbindir}
+install madt/madt $RPM_BUILD_ROOT%{_sbindir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README
+%doc README README.madt
 %attr(755,root,root) %{_sbindir}/*
