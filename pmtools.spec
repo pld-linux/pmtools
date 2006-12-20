@@ -1,12 +1,12 @@
 Summary:	Retrieve the DSDT from your BIOS
 Summary(pl):	Narzêdzie do odczytu DSDT z BIOS-u
 Name:		pmtools
-Version:	20061026
+Version:	20061130
 Release:	1
 License:	GPL
 Group:		Applications/System
 Source0:	http://ftp.kernel.org/pub/linux/kernel/people/lenb/acpi/utils/%{name}-%{version}.tar.bz2
-# Source0-md5:	a64834987d23e35c90a80c1ca0c3e2ae
+# Source0-md5:	e34ac3af8792d675319a36b4b0cb847f
 URL:		http://acpi.sourceforge.net/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -36,7 +36,11 @@ mv -f madt/README README.madt
 %build
 %{__make} -C acpidump \
 	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags} -Wall -W -pedantic -D_LINUX -DDEFINE_ALTERNATE_TYPES  -I../include"
+	CFLAGS="%{rpmcflags} -Wall -W -pedantic -D_LINUX -DDEFINE_ALTERNATE_TYPES -I../include"
+
+%{__make} -C acpixtract \
+	CC="%{__cc}" \
+	CFLAGS="%{rpmcflags} -Wall -Wstrict-prototypes -D_LINUX -DACPI_APPLICATION -I../include"
 
 %{__cc} %{rpmldflags} %{rpmcflags} -o madt/madt madt/madt.c
 
@@ -44,7 +48,8 @@ mv -f madt/README README.madt
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_sbindir}
 
-install acpidump/{acpidump,acpitbl,acpixtract} $RPM_BUILD_ROOT%{_sbindir}
+install acpidump/{acpidump,acpitbl} $RPM_BUILD_ROOT%{_sbindir}
+install acpixtract/acpixtract $RPM_BUILD_ROOT%{_sbindir}
 install madt/madt $RPM_BUILD_ROOT%{_sbindir}
 
 %clean
