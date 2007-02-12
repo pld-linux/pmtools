@@ -1,5 +1,5 @@
 Summary:	Retrieve the DSDT from your BIOS
-Summary(pl):	Narz阣zie do odczytu DSDT z BIOS-u
+Summary(pl.UTF-8):   Narz臋dzie do odczytu DSDT z BIOS-u
 Name:		pmtools
 Version:	20061130
 Release:	1
@@ -19,14 +19,14 @@ Unfortunately, many hardware vendors and OEMs are not capable of
 supplying fully functional tables (not even the members of the ACPI
 SIG)
 
-%description -l pl
-DSDT to skr髏 od Differentiated System Description Table (r罂nicowa
-tabela opisu systemu). Jest to tabela zawieraj眂a r罂nicowy blok
-definicji, dostarczaj眂y informacji o systemie bazowym i jego
+%description -l pl.UTF-8
+DSDT to skr贸t od Differentiated System Description Table (r贸偶nicowa
+tabela opisu systemu). Jest to tabela zawieraj膮ca r贸偶nicowy blok
+definicji, dostarczaj膮cy informacji o systemie bazowym i jego
 konfiguracji. Jest zawsze umieszczany w przestrzeni nazw ACPI przez
-system operacyjny w czasie startu. Niestety wielu producent體 sprz阾u
-i OEM-體 nie ma mo縧iwo禼i dostarczania w pe硁i funkcjonalnych tabel
-(nawet cz硂nkowie ACPI SIG).
+system operacyjny w czasie startu. Niestety wielu producent贸w sprz臋tu
+i OEM-贸w nie ma mo偶liwo艣ci dostarczania w pe艂ni funkcjonalnych tabel
+(nawet cz艂onkowie ACPI SIG).
 
 %prep
 %setup -q
