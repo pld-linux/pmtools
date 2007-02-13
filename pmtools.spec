@@ -1,5 +1,5 @@
 Summary:	Retrieve the DSDT from your BIOS
-Summary(pl.UTF-8):   Narzędzie do odczytu DSDT z BIOS-u
+Summary(pl.UTF-8):	Narzędzie do odczytu DSDT z BIOS-u
 Name:		pmtools
 Version:	20061130
 Release:	1
