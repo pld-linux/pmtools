@@ -1,12 +1,12 @@
 Summary:	Retrieve the DSDT from your BIOS
 Summary(pl.UTF-8):	Narzędzie do odczytu DSDT z BIOS-u
 Name:		pmtools
-Version:	20071116
+Version:	20100825
 Release:	1
 License:	GPL
 Group:		Applications/System
 Source0:	http://ftp.kernel.org/pub/linux/kernel/people/lenb/acpi/utils/%{name}-%{version}.tar.bz2
-# Source0-md5:	51c49c8085c280cd697e7c7f808231ee
+# Source0-md5:	b1095988a56b70a5e66dd5fd8a670fed
 URL:		http://acpi.sourceforge.net/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -29,7 +29,7 @@ i OEM-ów nie ma możliwości dostarczania w pełni funkcjonalnych tabel
 (nawet członkowie ACPI SIG).
 
 %prep
-%setup -q
+%setup -q -n %{name}
 
 mv -f madt/README README.madt
 
@@ -58,4 +58,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README README.madt
-%attr(755,root,root) %{_sbindir}/*
+%attr(755,root,root) %{_sbindir}/acpidump
+%attr(755,root,root) %{_sbindir}/acpixtract
+%attr(755,root,root) %{_sbindir}/madt
