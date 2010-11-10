@@ -36,21 +36,21 @@ mv -f madt/README README.madt
 %build
 %{__make} -C acpidump \
 	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags} -Wall -W -D_LINUX -DDEFINE_ALTERNATE_TYPES -I../include"
+	CFLAGS="%{rpmcflags} -Wall -Wstrict-prototypes -Wdeclaration-after-statement -D_LINUX -DDEFINE_ALTERNATE_TYPES -I../include"
 
 %{__make} -C acpixtract \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} -Wall -Wstrict-prototypes -D_LINUX -DACPI_APPLICATION -I../include"
 
 %{__cc} %{rpmldflags} %{rpmcflags} -o madt/madt madt/madt.c
+%{__cc} %{rpmldflags} %{rpmcflags} -o turbostat/turbostat turbostat/turbostat.c
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_sbindir}
 
-install acpidump/acpidump $RPM_BUILD_ROOT%{_sbindir}
-install acpixtract/acpixtract $RPM_BUILD_ROOT%{_sbindir}
-install madt/madt $RPM_BUILD_ROOT%{_sbindir}
+install acpidump/acpidump acpixtract/acpixtract madt/madt turbostat/turbostat \
+	$RPM_BUILD_ROOT%{_sbindir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -61,3 +61,4 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sbindir}/acpidump
 %attr(755,root,root) %{_sbindir}/acpixtract
 %attr(755,root,root) %{_sbindir}/madt
+%attr(755,root,root) %{_sbindir}/turbostat
