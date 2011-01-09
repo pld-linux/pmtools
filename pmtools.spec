@@ -1,12 +1,12 @@
 Summary:	Retrieve the DSDT from your BIOS
 Summary(pl.UTF-8):	Narzędzie do odczytu DSDT z BIOS-u
 Name:		pmtools
-Version:	20100825
+Version:	20101221
 Release:	1
 License:	GPL
 Group:		Applications/System
 Source0:	http://ftp.kernel.org/pub/linux/kernel/people/lenb/acpi/utils/%{name}-%{version}.tar.bz2
-# Source0-md5:	b1095988a56b70a5e66dd5fd8a670fed
+# Source0-md5:	fa4156bc645d9cae2b1e58210cf22fb8
 URL:		http://acpi.sourceforge.net/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -47,10 +47,11 @@ mv -f madt/README README.madt
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_sbindir}
+install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man8}
 
 install acpidump/acpidump acpixtract/acpixtract madt/madt turbostat/turbostat \
 	$RPM_BUILD_ROOT%{_sbindir}
+install turbostat/turbostat.8 $RPM_BUILD_ROOT%{_mandir}/man8
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -62,3 +63,4 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sbindir}/acpixtract
 %attr(755,root,root) %{_sbindir}/madt
 %attr(755,root,root) %{_sbindir}/turbostat
+%{_mandir}/man8/turbostat.8*
