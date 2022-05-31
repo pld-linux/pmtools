@@ -34,22 +34,13 @@ i OEM-ów nie ma możliwości dostarczania w pełni funkcjonalnych tabel
 %{__mv} madt/README README.madt
 
 %build
-%{__make} -C acpidump \
-	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags} -Wall -Wstrict-prototypes -Wdeclaration-after-statement -D_LINUX -DDEFINE_ALTERNATE_TYPES -I../include"
-
-%{__make} -C acpixtract \
-	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags} -Wall -Wstrict-prototypes -D_LINUX -DACPI_APPLICATION -I../include"
-
 %{__cc} %{rpmldflags} %{rpmcflags} -o madt/madt madt/madt.c
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man8}
+install -d $RPM_BUILD_ROOT%{_sbindir}
 
-install acpidump/acpidump acpixtract/acpixtract madt/madt \
-	$RPM_BUILD_ROOT%{_sbindir}
+install madt/madt $RPM_BUILD_ROOT%{_sbindir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -57,6 +48,4 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README README.madt
-%attr(755,root,root) %{_sbindir}/acpidump
-%attr(755,root,root) %{_sbindir}/acpixtract
 %attr(755,root,root) %{_sbindir}/madt
