@@ -31,7 +31,7 @@ i OEM-ów nie ma możliwości dostarczania w pełni funkcjonalnych tabel
 %prep
 %setup -q -n %{name}
 
-mv -f madt/README README.madt
+%{__mv} madt/README README.madt
 
 %build
 %{__make} -C acpidump \
@@ -43,15 +43,13 @@ mv -f madt/README README.madt
 	CFLAGS="%{rpmcflags} -Wall -Wstrict-prototypes -D_LINUX -DACPI_APPLICATION -I../include"
 
 %{__cc} %{rpmldflags} %{rpmcflags} -o madt/madt madt/madt.c
-%{__cc} %{rpmldflags} %{rpmcflags} -o turbostat/turbostat turbostat/turbostat.c
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man8}
 
-install acpidump/acpidump acpixtract/acpixtract madt/madt turbostat/turbostat \
+install acpidump/acpidump acpixtract/acpixtract madt/madt \
 	$RPM_BUILD_ROOT%{_sbindir}
-install turbostat/turbostat.8 $RPM_BUILD_ROOT%{_mandir}/man8
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -62,5 +60,3 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sbindir}/acpidump
 %attr(755,root,root) %{_sbindir}/acpixtract
 %attr(755,root,root) %{_sbindir}/madt
-%attr(755,root,root) %{_sbindir}/turbostat
-%{_mandir}/man8/turbostat.8*
